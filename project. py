@@ -1,21 +1,19 @@
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')  # Required for server to save graphs
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 print("Simulation is starting...")
 
-# Test Graph
 x = np.linspace(0, 10, 100)
 y = np.sin(x)
 
 plt.figure(figsize=(8,4))
-plt.plot(x, y)
+plt.plot(x, y, color='green')
 plt.title("Test Simulation Result")
 plt.xlabel("Time")
 plt.ylabel("Value")
 plt.grid(True)
 
-# Save the graph as an image
 plt.savefig("result.png")
 print("Success! Graph saved as: result.png")
