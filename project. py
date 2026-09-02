@@ -1,24 +1,30 @@
- #=============================================
+ # ==================================================
 # HEAT TRANSFER PROJECT
 # 1D HEAT TRANSFER IN ASPHALT ROAD USING FVM
-# #==============================================
-# # Name: Purabi Nath
-# Email: purabinath124@gmail.com
-#==============================================
+# ==================================================
+# Student Name : PURABI RANI NATH
+# ID : purabinath124@gmail.com
+# Department : MATHEMATICS
+# Version : L=0.2m, dt=0.2, Nx=60
+# ==================================================
 
-import pandas as pd
+import subprocess
+import sys
+# Install required libraries automatically
+subprocess.check_call([sys.executable, "-m", "pip", "install", "numpy", "pandas", "matplotlib"])
+
 import numpy as np
 import matplotlib.pyplot as plt
 
 # 1. ROAD GEOMETRY AND GRID SETUP
 L = 0.2 # Road thickness in meters = 20 cm
-Nx = 60 # Number of grid points - 60 pieces
-dx = L / Nx # Grid spacing
+Nx = 60 # Number of grid points
+dx = L / Nx # Distance between each grid point
 
 # 2. TEMPERATURE AND TIME PARAMETERS
-T_top_initial = 76.0 # Initial top surface temperature in C
-T_bottom = 31.0 # Bottom boundary temperature in C
-T_initial = 34.0 # Initial temperature of the whole road in C
+T_top_initial = 76.0 # Initial top surface temperature in Celsius
+T_bottom = 31.0 # Bottom boundary temperature in Celsius
+T_initial = 34.0 # Initial temperature of the whole road in Celsius
 dt = 0.2 # Time step in seconds
 Nt = 600 # Total number of time steps
 
@@ -29,20 +35,19 @@ Cp = 920.0 # Specific heat capacity J/kgK
 alpha = k / (rho * Cp) # Thermal diffusivity
 
 # 4. ADDITIONAL REAL-WORLD EFFECTS
-CNG_EXHAUST_HEAT = 5.0 # Extra heat from CNG vehicles on top
+CNG_EXHAUST_HEAT = 5.0 # Extra heat from CNG vehicles on top surface
 RAIN_EFFECT = True # Enable rain cooling effect
 RAIN_START_SEC = 150.0 # Rain starts after 150 seconds
 RAIN_TEMP = 25.0 # Temperature during rain
 
 # 5. INITIAL CONDITION SETUP
-T = np.ones(Nx) * T_initial
-T[0] = T_top_initial + CNG_EXHAUST_HEAT # Top boundary: 76 + 5 = 81C
+T = np.ones(Nx) * T_initial # Set initial temperature for all points
+T[0] = T_top_initial + CNG_EXHAUST_HEAT # Top boundary: 81C
 T[-1] = T_bottom # Bottom boundary: 31C
 
 # 6. MAIN FVM SIMULATION LOOP
 print("Simulation Started...")
-
-# Time steps at which we want to save graphs: 0, 2, 4, 6, 8, 9.98 minutes
+# We will save graphs at: 0, 2, 4, 6, 8, 9.98 minutes
 result_times = [0, 120, 240, 360, 480, 599]
 
 for n in range(Nt):
@@ -51,7 +56,7 @@ for n in range(Nt):
 
     # Boundary Condition 1: Top Surface
     if RAIN_EFFECT and current_time > RAIN_START_SEC:
-        T[0] = RAIN_TEMP # Rain cools the surface
+        T[0] = RAIN_TEMP # Rain cools the surface to 25C
     else:
         T[0] = T_top_initial + CNG_EXHAUST_HEAT
 
@@ -65,22 +70,19 @@ for n in range(Nt):
     # 7. SAVE GRAPH FOR EACH SELECTED TIME
     if n in result_times:
         minute = current_time / 60.0
-        x = np.linspace(0, L * 100, Nx) # Depth in cm
+        x = np.linspace(L * 100, 0, Nx) # Depth in cm: from 20 to 0
 
         plt.figure(figsize=(8, 5))
         plt.plot(x, T, 'r-', linewidth=2.5)
-
         plt.xlabel('Depth (cm)')
         plt.ylabel('Temperature (°C)')
         plt.title(f'Temperature Profile at {minute:.1f} minutes - Road Depth 20cm')
         plt.grid(True, linestyle='--')
-        plt.gca().invert_xaxis() # 0cm at top, 20cm at bottom
-        plt.ylim(20, 90) # Y-axis limit
+        plt.ylim(20, 90)
 
-        # Save as PNG file
         filename = f'Graph-{minute:.1f}min-L20cm.png'
         plt.savefig(filename, dpi=200)
         plt.close()
         print(f"{filename} saved")
 
-print("\nSimulation Finished! All 6 graphs saved in folder")
+print("\nSimulation Finished! All 6 graphs saved")
