@@ -3,17 +3,8 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-print("Simulation is starting...")
-
 x = np.linspace(0, 10, 100)
 y = np.sin(x)
-
-plt.figure(figsize=(8,4))
-plt.plot(x, y, color='green')
-plt.title("Test Simulation Result")
-plt.xlabel("Time")
-plt.ylabel("Value")
-plt.grid(True)
-
+plt.plot(x, y)
 plt.savefig("result.png")
-print("Success! Graph saved as: result.png")
+print("Done")
