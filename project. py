@@ -1,12 +1,12 @@
-# ==================================================
+# #=============================================
 # HEAT TRANSFER PROJECT
 # 1D HEAT TRANSFER IN ASPHALT ROAD USING FVM
-# ==================================================
-# Student Name : PURABI RANI NATH
+# #==============================================
+# Student Name : Purabi Rani Nath
 # ID : purabinath124@gmail.com
 # Department : MATHEMATICS
 # Version : L=0.2m, dt=0.2, Nx=60 - Custom Version
-# ==================================================
+# #==============================================
 
 import numpy as np
 import matplotlib.pyplot as plt
