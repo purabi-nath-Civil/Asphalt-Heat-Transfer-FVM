@@ -1,37 +1,21 @@
-# Heat Transfer Simulation
-# Created by: Purabi Nath
-# Email: purabinath124@gmail.com
-# Department: Math
-
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')  # Required for server to save graphs
 import matplotlib.pyplot as plt
 
-# Parameters
-L = 1.0 # Length of rod
-Nx = 100 # Number of grid points
-dx = L / (Nx - 1)
-alpha = 0.01 # Thermal diffusivity
-dt = 0.001 # Time step
-t_final = 1.0 # Final time
+print("Simulation is starting...")
 
-x = np.linspace(0, L, Nx)
-T = np.ones(Nx) * 300 # Initial temperature 300K
-T[0] = 500 # Hot end 500K
-T[-1] = 300 # Cold end 300K
+# Test Graph
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
 
-n_steps = int(t_final / dt)
-
-for n in range(n_steps):
-    Tn = T.copy()
-    for i in range(1, Nx-1):
-        T[i] = Tn[i] + alpha * dt / dx**2 * (Tn[i+1] - 2*Tn[i] + Tn[i-1])
-
-plt.figure(figsize=(8,6))
-plt.plot(x, T, label=f'Time = {t_final}s', color='red')
-plt.xlabel('Position (m)')
-plt.ylabel('Temperature (K)')
-plt.title('1D Heat Transfer Simulation - By Purabi Nath')
-plt.legend()
+plt.figure(figsize=(8,4))
+plt.plot(x, y)
+plt.title("Test Simulation Result")
+plt.xlabel("Time")
+plt.ylabel("Value")
 plt.grid(True)
-plt.savefig('heat_transfer.png')
-print("Graph saved as heat_transfer.png")
+
+# Save the graph as an image
+plt.savefig("result.png")
+print("Success! Graph saved as: result.png")
