@@ -1,0 +1,16 @@
+name: Run Python Code
+on: [workflow_dispatch]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - run: pip install numpy matplotlib
+      - run: python project.py
+      - uses: actions/upload-artifact@v3
+        with:
+          name: heat-transfer-graphs
+          path: *.png
