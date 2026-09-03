@@ -6,7 +6,7 @@
 # ID : purabinath124@gmail.com
 # Department : MATHEMATICS
 # Version : L=0.2m, dt=0.2s, Nx=60
-# ==================================================
+ ==================================================
 import numpy as np
 import matplotlib.pyplot as plt
 import zipfile
