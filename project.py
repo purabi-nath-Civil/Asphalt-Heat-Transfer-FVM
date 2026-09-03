@@ -1,37 +1,4 @@
-# ==================================================
-# HEAT TRANSFER PROJECT
-# 1D HEAT TRANSFER IN ASPHALT ROAD USING FVM
-# ==================================================
-# Student Name : PURABI RANI NATH
-# ID : purabinath124@gmail.com
-# Department : MATHEMATICS
-# Version : L=0.2m, dt=0.2s, Nx=60
- ==================================================
-import numpy as np
-import matplotlib.pyplot as plt
-import zipfile
 
-print("Simulation Started...")
-
-# 1. ROAD GEOMETRY AND GRID SETUP
-L = 0.2 # Road thickness in meters = 20 cm
-Nx = 60 # Number of grid points
-dx = L / Nx
-
-# 2. TEMPERATURE AND TIME PARAMETERS
-T_top_initial = 76.0 # Initial top surface temperature in Celsius
-T_bottom = 31.0 # Bottom boundary temperature in Celsius
-T_initial = 34.0 # Initial temperature of the whole road in Celsius
-dt = 0.2 # Time step in seconds
-Nt = 600 # Total number of time steps
-
-# 3. MATERIAL PROPERTIES OF ASPHALT
-k = 0.75 # Thermal conductivity W/mK
-rho = 2300.0 # Density kg/m3
-Cp = 920.0 # Specific heat capacity J/kgK
-alpha = k / (rho * Cp)
-
-# 4. ADDITIONAL REAL-WORLD EFFECTS
 CNG_EXHAUST_HEAT = 5.0 # Extra heat from CNG vehicles on top surface
 RAIN_EFFECT = True # Enable rain cooling effect
 RAIN_START_SEC = 150.0 # Rain starts after 150 seconds
