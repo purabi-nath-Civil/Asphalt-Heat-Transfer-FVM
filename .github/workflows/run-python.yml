@@ -1,4 +1,4 @@
-name: Run Simulation
+name: Run-Simulation
 
 on:
   workflow_dispatch:
