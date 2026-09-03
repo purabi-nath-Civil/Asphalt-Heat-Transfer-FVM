@@ -7,7 +7,6 @@
 # Department : MATHEMATICS
 # Version : L=0.2m, dt=0.2s, Nx=60
 # ==================================================
-
 import numpy as np
 import matplotlib.pyplot as plt
 import zipfile
@@ -17,20 +16,20 @@ print("Simulation Started...")
 # 1. ROAD GEOMETRY AND GRID SETUP
 L = 0.2 # Road thickness in meters = 20 cm
 Nx = 60 # Number of grid points
-dx = L / Nx # Distance between each grid point
+dx = L / Nx
 
 # 2. TEMPERATURE AND TIME PARAMETERS
 T_top_initial = 76.0 # Initial top surface temperature in Celsius
 T_bottom = 31.0 # Bottom boundary temperature in Celsius
 T_initial = 34.0 # Initial temperature of the whole road in Celsius
 dt = 0.2 # Time step in seconds
-Nt = 600 # Total number of time steps = 120 seconds
+Nt = 600 # Total number of time steps
 
 # 3. MATERIAL PROPERTIES OF ASPHALT
 k = 0.75 # Thermal conductivity W/mK
 rho = 2300.0 # Density kg/m3
 Cp = 920.0 # Specific heat capacity J/kgK
-alpha = k / (rho * Cp) # Thermal diffusivity
+alpha = k / (rho * Cp)
 
 # 4. ADDITIONAL REAL-WORLD EFFECTS
 CNG_EXHAUST_HEAT = 5.0 # Extra heat from CNG vehicles on top surface
@@ -44,16 +43,16 @@ T[0] = T_top_initial + CNG_EXHAUST_HEAT # Top boundary: 81C
 T[-1] = T_bottom # Bottom boundary: 31C
 
 # 6. MAIN FVM SIMULATION LOOP
-result_times = [0, 120, 240, 360, 480, 599] # We will save graphs at these steps
+result_times = [0, 120, 240, 360, 480, 599]
 saved_files = []
 
 for n in range(Nt):
-    Tn = T.copy() # Temperature from previous time step
+    Tn = T.copy()
     current_time = n * dt
 
     # Boundary Condition 1: Top Surface
     if RAIN_EFFECT and current_time > RAIN_START_SEC:
-        T[0] = RAIN_TEMP # Rain cools the surface to 25C
+        T[0] = RAIN_TEMP
     else:
         T[0] = T_top_initial + CNG_EXHAUST_HEAT
 
@@ -68,7 +67,6 @@ for n in range(Nt):
     if n in result_times:
         minute = current_time / 60.0
         x = np.linspace(L * 100, 0, Nx) # Depth in cm: from 20 to 0
-
         plt.figure(figsize=(8, 5))
         plt.plot(x, T, 'r-', linewidth=2.5)
         plt.xlabel('Depth (cm)')
@@ -76,7 +74,6 @@ for n in range(Nt):
         plt.title(f'Temperature Profile at {minute:.1f} minutes - Road Depth 20cm')
         plt.grid(True, linestyle='--')
         plt.ylim(20, 90)
-
         filename = f'Graph-{minute:.1f}min-L20cm.png'
         plt.savefig(filename, dpi=200)
         plt.close()
