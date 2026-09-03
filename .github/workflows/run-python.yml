@@ -10,7 +10,7 @@
 
 import subprocess
 import sys
-subprocess.check_call([sys.executable, "-m", "pip", "install", "numpy", "pandas", "matplotlib"])
+subprocess.check_call([sys.executable, "-m", "pip", "install",  "matplotlib"])
 
 import numpy as np
 import matplotlib.pyplot as plt
