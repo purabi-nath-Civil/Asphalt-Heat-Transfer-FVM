@@ -87,3 +87,4 @@ for n in range(Nt + 1):
         print(f"{filename} saved at simulation time {current_time}s")
 
 print("\nSimulation Finished! All graphs saved correctly.")
+
